@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
 
+/**
+ * Favorite aggregate root
+ * This class represents the aggregate root for the Favorite entity.
+ */
 @Getter
 @Setter
 @Entity
