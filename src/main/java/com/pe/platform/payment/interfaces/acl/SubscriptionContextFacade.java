@@ -4,6 +4,8 @@ import com.pe.platform.payment.domain.model.commands.CreateSubscriptionCommand;
 import com.pe.platform.payment.domain.services.SubscriptionCommandService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 
 public class SubscriptionContextFacade {
@@ -27,9 +29,9 @@ public class SubscriptionContextFacade {
 
     * */
 
-    public Long createSubscription(Integer price, String description, Boolean paid) {
+    public Long createSubscription(Long userId, Long planId, Date startDate) {
 
-        var createSubscriptionCommand = new CreateSubscriptionCommand(price, description, paid);
+        var createSubscriptionCommand = new CreateSubscriptionCommand(planId);
         var subscription = subscriptionCommandService.handle(createSubscriptionCommand);
         if (subscription.isEmpty()) return 0L;
         return subscription.get().getId();

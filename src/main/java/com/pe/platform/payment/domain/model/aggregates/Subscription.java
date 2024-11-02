@@ -3,54 +3,46 @@ package com.pe.platform.payment.domain.model.aggregates;
 import com.pe.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Date;
 
 @Entity
+@Getter
+@Setter
 public class Subscription extends AuditableAbstractAggregateRoot<Subscription> {
 
 
     @Column(nullable = false)
-    private Integer price;
+    private Long userId;
+
     @Column(nullable = false)
-    private String description;
+    private Long planId;
+
+    @Column(nullable = false)
+    private Date startDate;
+
+    @Column(nullable = false)
+    private Date endDate;
+
+
     @Column(nullable = false)
     private Boolean paid;
-    @Column(nullable = false)
-    private Long profileId;
-
-
 
 
     public Subscription() {
 
     }
 
-    public Subscription(Integer price, String description, Boolean paid,Long profileId) {
-        this.price = price;
-        this.description = description;
-        this.paid = false;
-        this.profileId=profileId;
+    public Subscription(Long userId, Long planId, Date startDate, Date endDate) {
+        this.userId = userId;
+        this.planId = planId;
+        this.paid = true;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
     public void updateToPaid() {
-        this.paid = true;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Boolean getPaid() {
-        return paid;
-    }
-
-    public Long getProfileId() {
-        return profileId;
-    }
-
-    public void setPaid(boolean b) {
-        this.paid=b;
+        this.paid = !paid;
     }
 }

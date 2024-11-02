@@ -7,6 +7,6 @@ import com.pe.platform.payment.interfaces.rest.resources.SubscriptionResource;
 
 public class PlanResourceFromEntityAssembler {
     public static PlanResource toResourceFromEntity(Plan entity) {
-        return new PlanResource(entity.getName(), entity.getPrice());
+        return new PlanResource(entity.getId(),entity.getName(), entity.getPrice());
     }
 }

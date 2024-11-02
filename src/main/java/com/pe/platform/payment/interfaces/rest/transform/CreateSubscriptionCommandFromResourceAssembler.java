@@ -7,10 +7,8 @@ public class CreateSubscriptionCommandFromResourceAssembler {
     public static CreateSubscriptionCommand toCommandFromResource (CreateSubscriptionResource resource) {
 
         return new CreateSubscriptionCommand (
-                resource.price(),
-                resource.description(),
-                resource.paid());
+                resource.planId()
+        );
     }
-
 }
 

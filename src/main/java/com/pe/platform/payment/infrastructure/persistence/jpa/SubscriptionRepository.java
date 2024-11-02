@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
-    Optional<Subscription> findByProfileId(Long Id);
+    Optional<Subscription> findByUserId(Long userId);
 
 
 }
