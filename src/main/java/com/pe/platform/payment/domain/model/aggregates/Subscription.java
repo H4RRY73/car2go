@@ -1,48 +1,51 @@
 package com.pe.platform.payment.domain.model.aggregates;
 
+import com.pe.platform.payment.domain.model.valueobjects.SubscriptionStatus;
 import com.pe.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.Date;
 
 @Entity
-@Getter
-@Setter
 public class Subscription extends AuditableAbstractAggregateRoot<Subscription> {
 
+    @Column(nullable = false)
+    private Integer price;
 
     @Column(nullable = false)
-    private Long userId;
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SubscriptionStatus status;
 
     @Column(nullable = false)
-    private Long planId;
+    private Long profileId;
 
-    @Column(nullable = false)
-    private Date startDate;
+    public Subscription() {}
 
-    @Column(nullable = false)
-    private Date endDate;
-
-
-    @Column(nullable = false)
-    private Boolean paid;
-
-
-    public Subscription() {
-
+    public Subscription(Integer price, String description, SubscriptionStatus status, Long profileId) {
+        this.price = price;
+        this.description = description;
+        this.status = status;
+        this.profileId = profileId;
     }
 
-    public Subscription(Long userId, Long planId, Date startDate, Date endDate) {
-        this.userId = userId;
-        this.planId = planId;
-        this.paid = true;
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public Integer getPrice() {
+        return price;
     }
-    public void updateToPaid() {
-        this.paid = !paid;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public SubscriptionStatus getStatus() {
+        return status;
+    }
+
+    public Long getProfileId() {
+        return profileId;
+    }
+
+    public void setStatus(SubscriptionStatus status) {
+        this.status = status;
     }
 }

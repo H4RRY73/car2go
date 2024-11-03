@@ -23,10 +23,11 @@ public class VehicleResourceFromEntityAssembler {
                 entity.getPlate(),
                 entity.getLocation(),
                 entity.getDescription(),
-                entity.getImage(),
+                entity.getImages(),
                 entity.getProfileId(),
                 entity.getFuel(),
-                entity.getSpeed()
+                entity.getSpeed(),
+                entity.getStatus().name()
         );
     }
 }

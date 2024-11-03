@@ -1,4 +1,6 @@
 package com.pe.platform.payment.domain.model.commands;
 
-public record UpdateSubscriptionCommand(Long profileId) {
+import com.pe.platform.payment.domain.model.valueobjects.SubscriptionStatus;
+
+public record UpdateSubscriptionCommand(Long profileId, SubscriptionStatus status) {
 }

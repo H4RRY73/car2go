@@ -1,23 +1,28 @@
 package com.pe.platform.vehicle.interfaces.rest.resources;
 
-public record UpdateVehicleResource(String name,
-                                    String phone,
-                                    String email,
-                                    String brand,
-                                    String model,
-                                    String color,
-                                    String year,
-                                    double price,
-                                    String transmission,
-                                    String engine,
-                                    int mileage,
-                                    String doors,
-                                    String plate,
-                                    String location,
-                                    String description,
-                                    String image,
-                                    String fuel,
-                                    int speed) {
+import java.util.List;
+
+public record UpdateVehicleResource(
+        String name,
+        String phone,
+        String email,
+        String brand,
+        String model,
+        String color,
+        String year,
+        double price,
+        String transmission,
+        String engine,
+        int mileage,
+        String doors,
+        String plate,
+        String location,
+        String description,
+        List<String> images,
+        String fuel,
+        int speed,
+        String status
+) {
 
     public UpdateVehicleResource {
         if (name == null || name.isBlank()) {
@@ -65,11 +70,17 @@ public record UpdateVehicleResource(String name,
         if (description == null || description.isBlank()) {
             throw new IllegalArgumentException("Description cannot be null or empty");
         }
+        if (images == null || images.isEmpty()) {  // Validación de lista de imágenes
+            throw new IllegalArgumentException("At least one image is required");
+        }
         if (fuel == null || fuel.isBlank()) {
             throw new IllegalArgumentException("Fuel type cannot be null or empty");
         }
         if (speed <= 0) {
             throw new IllegalArgumentException("Speed must be greater than zero");
+        }
+        if (status == null || status.isBlank()) {
+            throw new IllegalArgumentException("Status cannot be null or empty");
         }
     }
 }

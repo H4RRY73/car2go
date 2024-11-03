@@ -14,13 +14,12 @@ import java.util.Optional;
 public class SubscriptionQueryServiceImpl implements SubscriptionQueryService {
     private final SubscriptionRepository subscriptionRepository;
 
-    public SubscriptionQueryServiceImpl(SubscriptionRepository subscriptionRepository)
-    {
+    public SubscriptionQueryServiceImpl(SubscriptionRepository subscriptionRepository) {
         this.subscriptionRepository = subscriptionRepository;
     }
 
     @Override
-    public List<Subscription> handle(GetAllSubscriptionQuery query){
+    public List<Subscription> handle(GetAllSubscriptionQuery query) {
         return subscriptionRepository.findAll();
     }
 
@@ -29,4 +28,12 @@ public class SubscriptionQueryServiceImpl implements SubscriptionQueryService {
         return subscriptionRepository.findById(query.id());
     }
 
+    @Override
+    public List<Subscription> getAllSubscriptions() {
+        return subscriptionRepository.findAll();
+    }
+    @Override
+    public Optional<Subscription> getByProfileId(Long profileId) {
+        return subscriptionRepository.findByProfileId(profileId);
+    }
 }

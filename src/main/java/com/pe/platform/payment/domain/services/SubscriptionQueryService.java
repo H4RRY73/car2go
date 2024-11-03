@@ -9,6 +9,8 @@ import java.util.Optional;
 
 public interface SubscriptionQueryService {
     List<Subscription> handle(GetAllSubscriptionQuery query);
-
     Optional<Subscription> handle(GetSubscriptionByIdQuery query);
+    Optional<Subscription> getByProfileId(Long profileId);
+    List<Subscription> getAllSubscriptions();
+
 }

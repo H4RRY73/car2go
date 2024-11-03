@@ -5,6 +5,6 @@ import com.pe.platform.payment.interfaces.rest.resources.SubscriptionResource;
 
 public class SubscriptionResourceFromEntityAssembler {
     public static SubscriptionResource toResourceFromEntity(Subscription entity) {
-        return new SubscriptionResource(entity.getUserId(), entity.getPlanId(), entity.getStartDate(), entity.getEndDate(), entity.getPaid());
+        return new SubscriptionResource(entity.getPrice(), entity.getDescription(), entity.getStatus(), entity.getProfileId());
     }
 }
