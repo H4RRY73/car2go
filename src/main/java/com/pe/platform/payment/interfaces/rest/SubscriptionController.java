@@ -26,52 +26,35 @@ public class SubscriptionController {
     private final SubscriptionCommandService subscriptionCommandService;
 
     public SubscriptionController(SubscriptionQueryService subscriptionQueryService,
-                                  SubscriptionCommandService subscriptionCommandService){
+                                  SubscriptionCommandService subscriptionCommandService) {
         this.subscriptionQueryService = subscriptionQueryService;
         this.subscriptionCommandService = subscriptionCommandService;
     }
 
     @PostMapping
-    public ResponseEntity<SubscriptionResource> createSubscription(@RequestBody CreateSubscriptionResource resource){
+    public ResponseEntity<SubscriptionResource> createSubscription(@RequestBody CreateSubscriptionResource resource) {
         Optional<Subscription> subscription = subscriptionCommandService.handle(CreateSubscriptionCommandFromResourceAssembler.toCommandFromResource(resource));
         return subscription.map(resp ->
                         new ResponseEntity<>(SubscriptionResourceFromEntityAssembler
                                 .toResourceFromEntity(resp), CREATED))
-                .orElseGet(()-> ResponseEntity.badRequest().build());
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
-
-    /*
-    @GetMapping("/all")
-    public ResponseEntity<List<SubscriptionResource>> getAllSubscription() {
-        var subscriptions = subscriptionQueryService.handle(new GetAllSubscriptionQuery());
-        if(subscriptions.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        var subscriptionResources = subscriptions.stream().map(SubscriptionResourceFromEntityAssembler::toResourceFromEntity).toList();
-        return ResponseEntity.ok(subscriptionResources);
-    }
-    */
-
 
     @GetMapping("/{id}")
     public ResponseEntity<SubscriptionResource> getSubscriptionById(@PathVariable int id) {
         var getSubscriptionByIdQuery = new GetSubscriptionByIdQuery((long) id);
         var subscription = subscriptionQueryService.handle(getSubscriptionByIdQuery);
-        if(subscription.isEmpty()) return ResponseEntity.notFound().build();
+        if (subscription.isEmpty()) return ResponseEntity.notFound().build();
         var subscriptionResource = SubscriptionResourceFromEntityAssembler.toResourceFromEntity(subscription.get());
         return ResponseEntity.ok(subscriptionResource);
     }
 
-
     @PutMapping("/pay/subscription/{profileId}")
-    public ResponseEntity<SubscriptionResource>paySubscription(@PathVariable Long profileId){
-        Optional<Subscription> subscription= subscriptionCommandService.handle(new UpdateSubscriptionCommand(profileId));
-        var  subscriptionResource = SubscriptionResourceFromEntityAssembler.toResourceFromEntity(subscription.get());
+    public ResponseEntity<SubscriptionResource> paySubscription(@PathVariable Long profileId) {
+        Optional<Subscription> subscription = subscriptionCommandService.handle(new UpdateSubscriptionCommand(profileId));
+        var subscriptionResource = SubscriptionResourceFromEntityAssembler.toResourceFromEntity(subscription.get());
         return ResponseEntity.ok(subscriptionResource);
 
     }
-
-
-
 
 }
